@@ -1,40 +1,35 @@
-GNL = $(wildcard get_next_line/*c)
-GNLOBJS = $(GNL:.c=.o)
-
-SRCS = map.c control.c move.c
-#CFLAGS = -Wall -Wextra -Werror -I./minilibx-linux -g
-CFLAGS = -Wall -Wextra -Werror -I./mlx -g
-#LFLAGS = -L./minilibx-linux -lmlx -lXext -lX11 -lXpm -lm -lz
-LFLAGS = -L./mlx -framework OpenGL -framework AppKit
-
-#MLX = ./minilibx-linux/libmlx.a
+CFLAGS = -Wall -Wextra -Werror -I./minilibx -g 
+LFLAGS = -framework AppKit -framework OpenGL -L./mlx -lmlx -fsanitize=address
 MLX = ./mlx/libmlx.a
+PRINTF = ./ft_printf/libftprintf.a
+GNL = ./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c
+GNLOBJS = $(GNL:.c=.o)
+SRCS = map.c map2.c control.c control2.c move.c path_control.c so_long.c path_control_utils.c control3.c
 OBJS = $(SRCS:.c=.o)
 NAME = so_long
 
-all : $(MLX) $(NAME)
+all : $(MLX) $(PRINTF) $(NAME)
 
 $(MLX) :
-#make -sC ./minilibx-linux
 	make -sC ./mlx
 
-$(NAME) : $(OBJS) $(GNLOBJS)
-	gcc $(OBJS) $(GNLOBJS) $(LFLAGS) -o $(NAME)
+$(PRINTF) :
+	make -sC ./ft_printf
+
+$(NAME) : $(OBJS) $(GNLOBJS) $(PRINTF)
+	gcc $(OBJS) $(GNLOBJS) $(PRINTF) $(LFLAGS) -o $(NAME) $(MLX) 
 
 .c.o:
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -rf $(OBJS) $(NAME)
+	rm -rf $(OBJS)
 
 fclean:
 	rm -rf $(OBJS) $(NAME)
-	rm -rf ./get_next_line/*.o
-#make clean -C ./minilibx-linux
+	rm -rf ./get_next_line/get_next_line.o ./get_next_line/get_next_line_utils.o
 	make clean -C ./mlx
-
-norm:
-	norminette ./*.c
+	make fclean -C ./ft_printf
 
 re : fclean all
 

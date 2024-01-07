@@ -1,28 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   path_control_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oyozcan <42istanbul.com.tr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/01 14:45:57 by oyozcan           #+#    #+#             */
-/*   Updated: 2023/08/01 14:54:09 by oyozcan          ###   ########.tr       */
+/*   Created: 2023/12/30 17:14:59 by oyozcan           #+#    #+#             */
+/*   Updated: 2023/12/30 17:15:00 by oyozcan          ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "so_long.h"
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <fcntl.h>
+void	map_free(char **map)
+{
+	int	i;
 
-char	*get_next_line(int fd);
-size_t	ft_strlen(char *string);
-int		ft_find_newline(char *str);
-char	*ft_strjoin(char *s1, char *s2);
+	i = 0;
+	while (map[i])
+	{
+		free(map[i]);
+		i++;
+	}
+	free(map);
+}
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
-# endif
-#endif
+char	*ft_strdup(const char *s)
+{
+	char	*str;
+	int		i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{
+		i++;
+	}
+	str = (char *)malloc(sizeof(char) * (i + 1));
+	if (!str)
+	{
+		return (0);
+	}
+	i = 0;
+	while (s[i] != '\0')
+	{
+		str[i] = s[i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
+}

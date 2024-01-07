@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oyozcan <42istanbul.com.tr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/01 14:45:57 by oyozcan           #+#    #+#             */
-/*   Updated: 2023/08/01 14:54:09 by oyozcan          ###   ########.tr       */
+/*   Created: 2023/07/24 18:52:17 by oyozcan           #+#    #+#             */
+/*   Updated: 2023/07/24 18:52:27 by oyozcan          ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-# include <stdlib.h>
 # include <unistd.h>
-# include <fcntl.h>
+# include <stdarg.h>
 
-char	*get_next_line(int fd);
-size_t	ft_strlen(char *string);
-int		ft_find_newline(char *str);
-char	*ft_strjoin(char *s1, char *s2);
+int	ft_putstr(char *str);
+int	ft_putnbr(int nb);
+int	ft_putudec(unsigned int nbr);
+int	ft_puthexa(unsigned int nbr, char *list);
+int	ft_putptr(void *ptr);
+int	ft_printf(const char *format, ...);
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
-# endif
 #endif
